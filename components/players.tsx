@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { PlayerBlock } from "./player-block"
+import { RoundCounter } from "./round-counter"
 
 interface Player {
   id: string
@@ -17,6 +18,7 @@ const createPlayer = (): Player => ({
 
 export const Players = () => {
   const [players, setPlayers] = useState<Player[]>([createPlayer(), createPlayer()])
+  const [round, setRound] = useState(1)
 
   const addPlayer = () => {
     if (players.length < 4) setPlayers((prev) => [...prev, createPlayer()])
@@ -32,6 +34,14 @@ export const Players = () => {
 
   return (
     <div className="flex flex-col items-center gap-6">
+      {/* Round counter */}
+      <RoundCounter
+        round={round}
+        onIncrement={() => setRound((r) => r + 1)}
+        onDecrement={() => setRound((r) => Math.max(1, r - 1))}
+      />
+
+      {/* Players grid */}
       <div className="grid grid-cols-2 gap-6">
         {players.map((player) => (
           <PlayerBlock
@@ -45,6 +55,7 @@ export const Players = () => {
         ))}
       </div>
 
+      {/* Add player */}
       <button
         onClick={addPlayer}
         disabled={players.length >= 4}
