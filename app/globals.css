@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+@media (orientation: portrait) {
+  body::before {
+    content: "Rotate your device";
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #09090b;
+    color: white;
+    font-size: 1.25rem;
+    z-index: 50;
+  }
+}
